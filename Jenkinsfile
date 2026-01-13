@@ -1,5 +1,8 @@
 node {
-    def commit_id
+    def commitId = sh(
+    script: 'git rev-parse --short HEAD',
+    returnStdout: true
+    ).trim()
     stage('Preparation') {
         checkout scm
         sh "git rev-parse --short HEAD > .git/commit_id"
