@@ -1,12 +1,9 @@
 node {
-    def commitId = sh(
-    script: 'git rev-parse --short HEAD',
-    returnStdout: true
-    ).trim()
+    def commit_id
     stage('Preparation') {
         checkout scm
         sh "git rev-parse --short HEAD > .git/commit_id"
-        commit_id = readFile('commit_id').trim()
+        commit_id = readFile('.git/commit_id').trim()
     }
     stage('test') {
         nodejs(nodeJSInstallationName: 'nodejs') {
